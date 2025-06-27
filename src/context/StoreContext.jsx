@@ -8,7 +8,7 @@ const StoreContextProvider = (props) => {
    const [cartItems, setCartItems] = useState({});
    const [token, setToken] = useState("");
    const [food_list, setFoodList] = useState([]);
-   const apiUrl = "https://website-backend-6jiz.onrender.com"";
+   const apiUrl = "https://website-backend-6jiz.onrender.com";
 
    const addToCart = async (itemId) => {
       setCartItems((prev) => ({
