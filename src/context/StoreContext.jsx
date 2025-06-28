@@ -9,7 +9,7 @@ const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
   const [token, setToken] = useState("");
   const [food_list, setFoodList] = useState([]);
-  const url = "http://localhost:4000"; // ✅ This is the correct base API URL
+  const url = "http://localhost:4000"; 
 
   const addToCart = async (itemId) => {
     setCartItems((prev) => ({
