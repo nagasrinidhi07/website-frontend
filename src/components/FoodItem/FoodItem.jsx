@@ -1,37 +1,45 @@
-//eslint-disable-next-line no-unused-vars
-import React, {useContext} from 'react'
-import './FoodItem.css'
-import { assets } from '../../assets/assets'
-import { StoreContext } from '../../context/StoreContext'
+import React, { useContext } from 'react';
+import './FoodItem.css';
+import { assets } from '../../assets/assets';
+import { StoreContext } from '../../context/StoreContext';
 
 // eslint-disable-next-line react/prop-types
-const FoodItem = ({ id,name,price,image }) => {
+const FoodItem = ({ id, name, price, image }) => {
+  const { cartItems, addToCart, removeFromCart, url } = useContext(StoreContext);
 
-    const {cartItems,addToCart,removeFromCart,url} = useContext(StoreContext);
+  // Optional: If cartItems is not yet loaded, show a fallback
+  if (!cartItems) return null; // or use: return <p>Loading...</p>;
 
   return (
-    <div className='food-item'>
+    <div className="food-item">
       <div className="food-item-img-container">
-        <img className='food-item-image' src={url+"/images/"+image} alt="" />
-        {!cartItems[id]
-            ?<img className='add' onClick={()=>addToCart(id)} src={assets.add_icon_white} alt="" />
-            :<div className='food-item-counter'>
-                <img onClick={()=>removeFromCart(id)} src={assets.remove_icon_red} alt="" />
-                <p>{cartItems[id]}</p>
-                <img onClick={()=>addToCart(id)} src={assets.add_icon_green} alt="" />
-            </div>
+        <img className="food-item-image" src={`${url}/images/${image}`} alt={name} />
 
-        }
+        {!cartItems?.[id] ? (
+          <img
+            className="add"
+            onClick={() => addToCart(id)}
+            src={assets.add_icon_white}
+            alt="Add"
+          />
+        ) : (
+          <div className="food-item-counter">
+            <img onClick={() => removeFromCart(id)} src={assets.remove_icon_red} alt="Remove" />
+            <p>{cartItems[id]}</p>
+            <img onClick={() => addToCart(id)} src={assets.add_icon_green} alt="Add" />
+          </div>
+        )}
       </div>
-    <div className="food-item-info">
-      <div className="food-item-name-rating">
+
+      <div className="food-item-info">
+        <div className="food-item-name-rating">
           <p>{name}</p>
-          <img src={assets.rating_starts} alt="" />
+          <img src={assets.rating_starts} alt="Rating" />
+        </div>
+        <p className="food-item-price">₹ {price}</p>
       </div>
-      <p className="food-item-price">₹ {price}</p>
     </div>
-  </div>
-  )
-}
+  );
+};
 
 export default FoodItem;
