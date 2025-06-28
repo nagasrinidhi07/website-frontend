@@ -1,40 +1,31 @@
-import React, { useContext } from 'react';
-import './FoodItem.css';
-import { assets } from '../../assets/assets';
-import { StoreContext } from '../../context/StoreContext';
+// src/components/FoodItem/FoodItem.jsx
+import React, { useContext } from "react";
+import "./FoodItem.css";
+import { assets } from "../../assets/assets";
+import { StoreContext } from "../../context/StoreContext";
 
 // eslint-disable-next-line react/prop-types
 const FoodItem = ({ id, name, price, image }) => {
   const { cartItems, addToCart, removeFromCart, url } = useContext(StoreContext);
 
-  // Optional: If cartItems is not yet loaded, show a fallback
-  if (!cartItems) return null; // or use: return <p>Loading...</p>;
-
   return (
     <div className="food-item">
       <div className="food-item-img-container">
         <img className="food-item-image" src={`${url}/images/${image}`} alt={name} />
-
-        {!cartItems?.[id] ? (
-          <img
-            className="add"
-            onClick={() => addToCart(id)}
-            src={assets.add_icon_white}
-            alt="Add"
-          />
+        {!cartItems[id] ? (
+          <img className="add" onClick={() => addToCart(id)} src={assets.add_icon_white} alt="add" />
         ) : (
           <div className="food-item-counter">
-            <img onClick={() => removeFromCart(id)} src={assets.remove_icon_red} alt="Remove" />
+            <img onClick={() => removeFromCart(id)} src={assets.remove_icon_red} alt="remove" />
             <p>{cartItems[id]}</p>
-            <img onClick={() => addToCart(id)} src={assets.add_icon_green} alt="Add" />
+            <img onClick={() => addToCart(id)} src={assets.add_icon_green} alt="add more" />
           </div>
         )}
       </div>
-
       <div className="food-item-info">
         <div className="food-item-name-rating">
           <p>{name}</p>
-          <img src={assets.rating_starts} alt="Rating" />
+          <img src={assets.rating_starts} alt="rating" />
         </div>
         <p className="food-item-price">₹ {price}</p>
       </div>
@@ -43,3 +34,4 @@ const FoodItem = ({ id, name, price, image }) => {
 };
 
 export default FoodItem;
+
