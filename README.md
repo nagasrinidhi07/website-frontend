@@ -1,8 +1,32 @@
-# React + Vite
+#Food Ordering App - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend of the Food Ordering web application built using React.js. It allows users to browse food items, add them to the cart, and place orders with online payment using Stripe.
 
-Currently, two official plugins are available:
+  #Live Demo
+[View Live Frontend](https://website-frontend-ewy9.onrender.com)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Tech Stack
+- React.js
+- React Context API
+- Axios
+- CSS
+
+## 📂 Folder Structure
+src/
+├── assets/
+├── components/
+├── context/
+├── pages/
+└── App.js
+
+
+## 📦 Installation
+
+``bash
+git clone https://github.com/nagasrinidhi07/website-frontend.git
+cd website-frontend
+npm install``
+
+Run Locally
+``bash
+npm run dev``
