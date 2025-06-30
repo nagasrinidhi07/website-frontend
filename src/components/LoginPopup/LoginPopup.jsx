@@ -4,9 +4,8 @@ import { assets } from '../../assets/assets';
 import { StoreContext } from '../../context/StoreContext';
 import axios from 'axios';
 
-// eslint-disable-next-line react/prop-types
 const LoginPopup = ({ setShowLogin }) => {
-  const { setToken } = useContext(StoreContext); // Removed `url`
+  const { setToken } = useContext(StoreContext);
   const [currState, setCurrState] = useState("Login");
 
   const [data, setData] = useState({
@@ -15,6 +14,8 @@ const LoginPopup = ({ setShowLogin }) => {
     password: ""
   });
 
+  const backendURL = import.meta.env.VITE_BACKEND_URL;
+
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
     setData((prev) => ({ ...prev, [name]: value }));
@@ -22,12 +23,10 @@ const LoginPopup = ({ setShowLogin }) => {
 
   const onLogin = async (event) => {
     event.preventDefault();
-
-    // Use Vite proxy path directly
-    const endpoint = currState === "Login" ? "/api/user/login" : "/api/user/register";
+    const endpoint = currState === "Login" ? "/user/login" : "/user/register";
 
     try {
-      const response = await axios.post(endpoint, data);
+      const response = await axios.post(`${backendURL}/api${endpoint}`, data);
 
       if (response.data.success) {
         setToken(response.data.token);
