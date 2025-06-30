@@ -8,9 +8,7 @@ const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
   const [token, setToken] = useState("");
   const [food_list, setFoodList] = useState([]);
-
-  // Use Vite proxy — no hardcoded backend URL
-  const baseUrl = "/api";
+  const url = "http://localhost:4000";
 
   const addToCart = async (itemId) => {
     setCartItems((prev) => ({
@@ -18,7 +16,7 @@ const StoreContextProvider = (props) => {
       [itemId]: (prev[itemId] || 0) + 1,
     }));
     if (token) {
-      await axios.post(`${baseUrl}/cart/add`, { itemId }, { headers: { token } });
+      await axios.post(url + "/api/cart/add", { itemId }, { headers: { token } });
     }
   };
 
@@ -32,7 +30,7 @@ const StoreContextProvider = (props) => {
       return { ...prev, [itemId]: prev[itemId] - 1 };
     });
     if (token) {
-      await axios.post(`${baseUrl}/cart/remove`, { itemId }, { headers: { token } });
+      await axios.post(url + "/api/cart/remove", { itemId }, { headers: { token } });
     }
   };
 
@@ -54,12 +52,12 @@ const StoreContextProvider = (props) => {
   };
 
   const fetchFoodList = async () => {
-    const response = await axios.get(`${baseUrl}/food/list`);
+    const response = await axios.get(url + "/api/food/list");
     setFoodList(response.data.data);
   };
 
   const loadCartData = async (token) => {
-    const response = await axios.post(`${baseUrl}/cart/get`, {}, { headers: { token } });
+    const response = await axios.post(url + "/api/cart/get", {}, { headers: { token } });
     setCartItems(response.data.cartData);
   };
 
@@ -83,16 +81,15 @@ const StoreContextProvider = (props) => {
     removeFromCart,
     clearCart,
     getTotalCartAmount,
+    url,
     token,
     setToken,
   };
 
-  return (
-    <StoreContext.Provider value={contextValue}>
-      {props.children}
-    </StoreContext.Provider>
-  );
+  return <StoreContext.Provider value={contextValue}>{props.children}</StoreContext.Provider>;
 };
 
 export default StoreContextProvider;
+
+
 
