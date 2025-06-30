@@ -1,4 +1,3 @@
-// src/context/StoreContext.jsx
 /* eslint-disable react/prop-types */
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
@@ -9,7 +8,9 @@ const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
   const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [food_list, setFoodList] = useState([]);
-  const url = "http://localhost:4000"; 
+
+  //  Use backend URL from .env (defined as VITE_BACKEND_URL)
+  const url = import.meta.env.VITE_BACKEND_URL;
 
   const addToCart = async (itemId) => {
     setCartItems((prev) => ({
@@ -98,13 +99,13 @@ const StoreContextProvider = (props) => {
     url,
     token,
     setToken,
-  }
+  };
 
   return (
     <StoreContext.Provider value={contextValue}>
       {props.children}
     </StoreContext.Provider>
-  )
-}
+  );
+};
 
 export default StoreContextProvider;
